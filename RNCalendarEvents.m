@@ -13,6 +13,7 @@ static NSString *const _calendarId = @"calendarId";
 static NSString *const _title = @"title";
 static NSString *const _location = @"location";
 static NSString *const _startDate = @"startDate";
+static NSString *const _timeZone = @"timeZone";
 static NSString *const _endDate = @"endDate";
 static NSString *const _allDay = @"allDay";
 static NSString *const _notes = @"notes";
@@ -81,6 +82,7 @@ RCT_EXPORT_MODULE()
     NSString *location = [RCTConvert NSString:details[_location]];
     NSDate *startDate = [RCTConvert NSDate:details[_startDate]];
     NSDate *endDate = [RCTConvert NSDate:details[_endDate]];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName: [RCTConvert NSString:details[_timeZone]]];
     NSNumber *allDay = [RCTConvert NSNumber:details[_allDay]];
     NSString *notes = [RCTConvert NSString:details[_notes]];
     NSString *url = [RCTConvert NSString:details[_url]];
@@ -123,6 +125,10 @@ RCT_EXPORT_MODULE()
         calendarEvent.endDate = endDate;
     }
 
+    if (timeZone) {
+        calendarEvent.timeZone = timeZone;
+    }
+    
     if (allDay) {
         calendarEvent.allDay = [allDay boolValue];
     }
@@ -442,6 +448,7 @@ RCT_EXPORT_MODULE()
                                          _location: @"",
                                          _startDate: @"",
                                          _endDate: @"",
+                                         _timeZone: @"",
                                          _allDay: @NO,
                                          _notes: @"",
                                          _url: @"",
@@ -458,7 +465,7 @@ RCT_EXPORT_MODULE()
                                          };
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Europe/Paris"];
     [dateFormatter setTimeZone:timeZone];
     [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
     [dateFormatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z"];
