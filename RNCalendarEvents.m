@@ -465,7 +465,7 @@ RCT_EXPORT_MODULE()
                                          };
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Europe/Paris"];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
     [dateFormatter setTimeZone:timeZone];
     [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
     [dateFormatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z"];
